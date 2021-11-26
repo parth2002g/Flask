@@ -8,6 +8,8 @@ def hello_world():
 
 @app.route('/<name>')
 
+#kjsjvsdvjns
+
 def hello_name(name):
 	return 'Hello %s' % name
 
