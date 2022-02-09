@@ -23,14 +23,14 @@ class Profile(db.Model):
     # last_name: Used to store last name of the user
     # Age: Used to store the age of the user
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(20), unique=False, nullable=False)
-    last_name = db.Column(db.String(20), unique=False, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(20), unique=False, nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(20), nullable=False)
 
     # repr method represents how one object of this datatable
     # will look like
     def __repr__(self):
-        return f"Name : {self.first_name}, Age: {self.age}"
+        return f"Name : {self.name}, Username: {self.username}"
 
 @app.route('/')
 def index():
@@ -42,7 +42,7 @@ def index():
 @app.route('/add_data')
 def add_data():
     return render_template('add_profile.html')
-    
+
 @app.route('/delete/<int:id>')
 def erase(id):
     # Deletes the data on the basis of unique id and
@@ -61,14 +61,14 @@ def profile():
     # Remember that inside the get the name should
     # exactly be the same as that in the html
     # input fields
-    first_name = request.form.get("first_name")
-    last_name = request.form.get("last_name")
-    age = request.form.get("age")
+    name = request.form.get("name")
+    username = request.form.get("username")
+    password = request.form.get("password")
 
     # create an object of the Profile class of models
     # and store data as a row in our datatable
-    if first_name != '' and last_name != '' and age is not None:
-        p = Profile(first_name=first_name, last_name=last_name, age=age)
+    if name != '' and username != '' and password != '':
+        p = Profile(name=name, username=username, password=password)
         db.session.add(p)
         db.session.commit()
         return redirect('/')
