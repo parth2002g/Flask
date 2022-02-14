@@ -58,7 +58,7 @@ def profile():
     password = request.form.get("password")
 
     # create an object of the Profile class of models
-    # and store data as a row in our datatable
+    # and store data as a  row in our datatable
     if name != '' and username != '' and password != '':
         p = Profile(name=name, username=username, password=password)
         db.session.add(p)
