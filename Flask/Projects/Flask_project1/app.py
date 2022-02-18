@@ -2,6 +2,7 @@ from flask import Flask, request, redirect
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
+from flask_navigation import Navigation
 
 app = Flask(__name__)
 app.debug = True
@@ -14,6 +15,13 @@ db = SQLAlchemy(app)
 
 # Settings for migrations
 migrate = Migrate(app, db)
+
+nav = Navigation(app)
+
+nav.Bar('top', [
+    nav.Item('Home', 'index'),
+    nav.Item('Gfg', 'gfg', {'page': 5}),
+])  
 
 # Models
 class Profile(db.Model):
